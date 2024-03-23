@@ -8,14 +8,16 @@ export async function onRequest(context) {
       next, // used for middleware or to fetch assets
       data, // arbitrary space for passing data between middlewares
     } = context;
-    const res = await fetch(`https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=5`);
-    const bing_data = await res.json();
-    const return_data={
-        "status":true,
-        "message":"操作成功",
-        "data": bing_data.images
-    }
+    
+    // Direct link to the default image
+    const defaultImageUrl = 'https://img.gs/knrrcwdgdl/full/https://img.seyou.lol/file/e2f5d31316db645fd0a9f.jpg';
+
+    const return_data = {
+        "status": true,
+        "message": "操作成功",
+        "data": [{ "url": defaultImageUrl }] // Wrap the default image URL in an array
+    };
+
     const info = JSON.stringify(return_data);
     return new Response(info);
-
-  }
+}
